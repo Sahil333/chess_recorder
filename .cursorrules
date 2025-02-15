@@ -1,0 +1,20 @@
+# Project Overview
+I am trying to build a live chess game recorder. This system will convert the game video into the FEN notation using machine learning algorithms.
+
+# Strategy to solve the problem
+I only have a way to detect the chess pieces ( not what type of piece it is ) in the image. I am also able to detect the board in the image and transform the board into an image of 8x8 grid by following this paper: https://www.mdpi.com/2313-433X/7/6/94. I am not following this paper completely. I am only using the idea of transforming the board into a 8x8 grid from this paper. 
+
+Given these two components, I can build a system that can record the game moves and convert them into the FEN notation. Wait, this system will not be able to detect a random position on the board. So, I will have to make the assumption that game starts from a standard chess position. From this standard position, I will know the initial FEN notation. When a piece move, I can detect which piece is moved without knowing what type of piece it is because I already know the initial FEN notation. This argument follows the standard induction argument. So, I should be able to build a system that can record the game moves and convert them into the FEN notation.
+
+# Current Stage of the project
+1. I was able to train a yolo11 model to detect the chess pieces in the image. 
+2. The dataset is available at /dataset folder. The trained model is available at /runs/detect/train/weights/last.pt
+3. I am able to detect corner of the board image using the chesscog library.
+4. The command I am using to detect the corner of the board is "PYTHONPATH="/Users/sahilchaddha/external/recap:/Users/sahilchaddha/external/yacs:/Users/sahilchaddha/external/chesscog" python board_detection.py"
+
+# Next Steps
+We will go baby steps. So, first milestone has following agendas: 
+1. Map the pieces detected by the yolo11 model to the 8x8 grid.
+2. Make an app that allows the user to click picture after each move and spits out the next FEN notation.
+
+
