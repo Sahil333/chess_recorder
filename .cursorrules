@@ -2,19 +2,14 @@
 I am trying to build a live chess game recorder. This system will convert the game video into the FEN notation using machine learning algorithms.
 
 # Strategy to solve the problem
-I only have a way to detect the chess pieces ( not what type of piece it is ) in the image. I am also able to detect the board in the image and transform the board into an image of 8x8 grid by following this paper: https://www.mdpi.com/2313-433X/7/6/94. I am not following this paper completely. I am only using the idea of transforming the board into a 8x8 grid from this paper. 
-
-Given these two components, I can build a system that can record the game moves and convert them into the FEN notation. Wait, this system will not be able to detect a random position on the board. So, I will have to make the assumption that game starts from a standard chess position. From this standard position, I will know the initial FEN notation. When a piece move, I can detect which piece is moved without knowing what type of piece it is because I already know the initial FEN notation. This argument follows the standard induction argument. So, I should be able to build a system that can record the game moves and convert them into the FEN notation.
+I have a chess_game_recorder_v2.py script that can do analysis on a stream of frames from a video of a chess game starting from an initial position. I now want to port this to Android TFlite platform. Essentially convert recorder python script into a full blown android app where all model evaluation will happen on the mobile. 
 
 # Current Stage of the project
-1. I was able to train a yolo11 model to detect the chess pieces in the image. 
-2. The dataset is available at /dataset folder. The trained model is available at /runs/detect/train/weights/last.pt
-3. I am able to detect corner of the board image using the chesscog library.
-4. The command I am using to detect the corner of the board is "PYTHONPATH="/Users/sahilchaddha/external/recap:/Users/sahilchaddha/external/yacs:/Users/sahilchaddha/external/chesscog" python board_detection.py"
+1. I have the chess_game_recorder_v2.py
 
 # Next Steps
-We will go baby steps. So, first milestone has following agendas: 
-1. Map the pieces detected by the yolo11 model to the 8x8 grid.
-2. Make an app that allows the user to click picture after each move and spits out the next FEN notation.
-
-
+1. Make an android app out of the recorder script.
+2. Android will allow to start recording a game. 
+3. It will also indicate when it has detected an initial state of the board by using the logic of the recorder script.
+4. On the ui it will show a synthetic view of the board which will follow the game being recorded.
+5. We will use Flutter for this job.

@@ -1,3 +1,7 @@
 .vscode
 dataset
 runs
+logs
+yolo_chess_dataset
+yolo_chess_classification
+__pycache__
