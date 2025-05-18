@@ -1,0 +1,197 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Chess Board Detection",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/map_pieces_to_positions.py",
+            "args": [
+                "--image",
+                "${input:imagePath}",
+                "--debug"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "/Users/sahilchaddha/external/recap:/Users/sahilchaddha/external/yacs:/Users/sahilchaddha/external/chesscog"
+            }
+        },
+        {
+            "name": "Chess Game Recorder",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/chess_game_recorder.py",
+            "args": [
+                "--video",
+                "${input:videoPath}",
+                "--interval",
+                "1.0",
+                "--debug"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "/Users/sahilchaddha/external/recap:/Users/sahilchaddha/external/yacs:/Users/sahilchaddha/external/chesscog"
+            }
+        },
+        {
+            "name": "Chess Game Recorder V2",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/chess_game_recorder_v2.py",
+            "args": [
+                "--video",
+                "${input:videoPath}",
+                "--interval",
+                "0.1",
+                "--debug",
+                // "--start-frame",
+                // "230",
+                // "--position",
+                // "2kr4/1pp2p2/3p1nqb/pP2p3/4P1b1/3P1N2/2PB1PP1/R2QK2R w KQ a6 0 2"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTHONPATH": "/Users/sahilchaddha/external/recap:/Users/sahilchaddha/external/yacs:/Users/sahilchaddha/external/chesscog"
+            }
+        },
+        {
+            "name": "WB Dataset Prepare",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/white_or_black_piece_dataset_prepare.py",
+            "args": [
+                "--input_dir",
+                "dataset/Chess Piece Dataset.v1i.yolov11",
+                "--output_dir",
+                "dataset/white_or_black"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Chess Piece White/Black Classifier",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/white_or_black_classifier.py",
+            "args": [
+                "--dataset_dir",
+                "dataset/white_or_black",
+                "--save_model"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Chess Piece Similarity Dataset Prepare",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/chess_piece_similarity_dataset_prepare.py",
+            "args": [
+                "--input_dir",
+                "dataset/Chess Piece Dataset.v1i.yolov11",
+                "--output_dir",
+                "dataset/chess_piece_similarity",
+                "--pairs_per_piece",
+                "10",
+                "--same_type_ratio",
+                "0.5"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Chess Piece Similarity Classifier (MPS)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/chess_piece_similarity_classifier.py",
+            "args": [
+                "--dataset_dir",
+                "dataset/chess_piece_similarity",
+                "--batch_size",
+                "16",
+                "--epochs",
+                "30",
+                "--learning_rate",
+                "0.0001",
+                "--use_mps",
+                "--save_model"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Train Siamese Chess",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_siamese_chess.py",
+            "args": [
+                "--mode",
+                "train",
+                "--dataset_path",
+                "dataset/chess_piece_similarity",
+                "--batch_size",
+                "32",
+                "--epochs",
+                "50",
+                "--device",
+                "mps"
+            ]
+        },
+        {
+            "name": "Train Copied Network",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_copied_network.py",
+            "justMyCode": false
+        },
+        {
+            "name": "create yolo dataset",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/create_yolo_dataset.py"
+        },
+        {
+            "name": "fine tune yolo11",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/fine_tune_yolo11.py"
+        },
+        {
+            "name": "Convert pytorch to tflite",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/convert_to_tflite.py",
+            "args": [
+                "--model_path",
+                "yolo_chess_classification/fine_tuned_model5/weights/best.pt",
+                "--output_dir",
+                "./models/tflite/piece_classifier/",
+                "--method",
+                "ultralytics"
+            ]
+        },
+        {
+            "name": "Chess Recorder App",
+            "type": "dart",
+            "request": "launch",
+            "cwd": "app",
+            "program": "lib/main.dart"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "imagePath",
+            "type": "promptString",
+            "description": "Enter the path to the chess board image",
+            "default": "/Users/sahilchaddha/projects/chess_recorder/debug_frame_20250216_065800_355.jpg"
+        },
+        {
+            "id": "videoPath",
+            "type": "promptString",
+            "description": "Enter the path to the chess game video or camera index",
+            "default": "/Users/sahilchaddha/Downloads/20250222_012135.mp4"
+        }
+    ]
+}

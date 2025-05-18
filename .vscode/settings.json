@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.analysis.extraPaths": [
+        "/Users/sahilchaddha/external/chesscog",
+        "/Users/sahilchaddha/external/recap",
+        "/Users/sahilchaddha/external/yacs"
+    ]
+}
